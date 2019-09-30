@@ -1,0 +1,56 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+    Menge: <input type="number" name="serving" class="serving" value="1" min="1" max="10" /> Personen
+    <input type="hidden" id="previousServing" value="1" />
+
+    <h3>Zutaten</h3>
+
+    <ul class="ingredients">
+        <li class="ingredient">
+            <span class="amount">125</span> g Nudeln
+        </li>
+
+        <li class="ingredient">
+            <span class="amount">0.5</span> Tomatendose(n)
+        </li>
+
+        <li class="ingredient">
+            <span class="amount">0.5</span> Knoblauchzehe(n)
+        </li>
+    </ul>
+
+    <!-- jQuery  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Script external-->
+    <!-- <script src="calculate.js"></script> -->
+    <script>
+
+        $(function () {
+            $('.serving').bind('keyup', function (event) {
+                var previousValue = parseFloat($("#previousServing").val());
+                var newValue = parseFloat($(event.target).val());
+                if (previousValue && newValue) {
+                    $('.ingredient').each(function (index, elem) {
+                        var ingredientNow = $('.amount', elem);
+                        var oldIngredientAmount = ingredientNow.text();
+                        var newIngredientAmount = oldIngredientAmount * newValue / previousValue;
+                        ingredientNow.text(newIngredientAmount);
+                    });
+                    $('#previousServing').val(newValue);
+
+                    console.log("Der neue Wert beträgt:", newValue);
+                    // alert("Hallo!");
+
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>
